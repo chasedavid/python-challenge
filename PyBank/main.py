@@ -22,7 +22,7 @@ csvpath = os.path.join(".", "Resources", "budget_data.csv")
 outpath = os.path.join("result.csv")
 
 #open file and itterate
-with open(csvpath, 'r', newline='') as csvfile:
+with open(csvpath, 'r+', newline='') as csvfile:
     csvreader = csv.reader(csvfile, delimiter = ",")
     next(csvfile)
 #set variables
@@ -39,7 +39,6 @@ with open(csvpath, 'r', newline='') as csvfile:
 #iterate through the file
     for row in csvreader:
         months += 1
-        print(row[1])
         prolos.append(int(row[1]))
         length = len(prolos)
         if length > 1:
@@ -68,11 +67,21 @@ with open(csvpath, 'r', newline='') as csvfile:
 with open(outpath, 'w+', newline='') as outpt:
 
 #output to file
-    csvwriter = csv.writer(outpt, delimiter=",")
+    csvwriter = csv.writer(outpt, delimiter='\n', quoting=csv.QUOTE_NONE)
     print()
+#    for row in result:
+#        csvwriter.writerow(row)
+#        print(row)
+    csvwriter.writerows([result])
     for row in result:
-        csvwriter.writerow(row)
         print(row)
-
-#testing code:
-    print ()
+    print()
+'''
+    csvwriter.writerow("Financial Analysis")
+    csvwriter.writerow("--------------------------------")
+    csvwriter.writerow("Total Months: %i" %(months))
+    csvwriter.writerow("Total: $%i" %(total_profit(prolos)))
+    csvwriter.writerow("Average Change: $%.02f" %(mean(delta_prolos)))
+    csvwriter.writerow("Greatest Increase in Profits: %s ($%i)" %(mp_month, mx_pro))
+    csvwriter.writerow("Greatest Increase in Profits: %s ($%i)" %(ml_month, mx_los))
+'''
