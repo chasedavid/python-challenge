@@ -64,24 +64,16 @@ with open(csvpath, 'r+', newline='') as csvfile:
 #close filen for reading
     csvfile.close()
 
+#open for writing
 with open(outpath, 'w+', newline='') as outpt:
 
-#output to file
+#output to file and print
     csvwriter = csv.writer(outpt, delimiter='\n', quoting=csv.QUOTE_NONE)
     print()
-#    for row in result:
-#        csvwriter.writerow(row)
-#        print(row)
     csvwriter.writerows([result])
     for row in result:
         print(row)
     print()
-'''
-    csvwriter.writerow("Financial Analysis")
-    csvwriter.writerow("--------------------------------")
-    csvwriter.writerow("Total Months: %i" %(months))
-    csvwriter.writerow("Total: $%i" %(total_profit(prolos)))
-    csvwriter.writerow("Average Change: $%.02f" %(mean(delta_prolos)))
-    csvwriter.writerow("Greatest Increase in Profits: %s ($%i)" %(mp_month, mx_pro))
-    csvwriter.writerow("Greatest Increase in Profits: %s ($%i)" %(ml_month, mx_los))
-'''
+
+#close for writing
+    csvfile.close()
